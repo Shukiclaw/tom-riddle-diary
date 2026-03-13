@@ -787,10 +787,8 @@
     
     <!-- Background Music Audio Element -->
     <audio id="bgMusic" loop preload="auto">
-        <!-- Atmospheric dark fantasy music - Harry Potter style theme -->
-        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=harry-potter-style-mystical-theme-26550.mp3" type="audio/mpeg">
-        <!-- Fallback: Alternative mystical atmosphere track -->
-        <source src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_c8c91e3327.mp3?filename=mysterious-forest-ambient-13622.mp3" type="audio/mpeg">
+        <!-- Hedwig's Theme - Harry Potter -->
+        <source src="hedwigs-theme.mp3" type="audio/mpeg">
     </audio>
     
     <!-- Audio Control Button -->
@@ -1046,24 +1044,13 @@
         let userMessageCount = 0;
         let learnedSecrets = [];
         
-        // Load from LocalStorage
+        // Load from LocalStorage - DISABLED: Messages are ephemeral (deleted on refresh)
         function loadHistory() {
-            const saved = localStorage.getItem('tomRiddleDiary');
-            if (saved) {
-                const data = JSON.parse(saved);
-                conversationHistory = data.messages || [];
-                learnedSecrets = data.secrets || [];
-                userMessageCount = data.messageCount || 0;
-                renderHistory();
-            }
+            // Intentionally empty - no persistence
         }
         
         function saveHistory() {
-            localStorage.setItem('tomRiddleDiary', JSON.stringify({
-                messages: conversationHistory,
-                secrets: learnedSecrets,
-                messageCount: userMessageCount
-            }));
+            // Intentionally empty - no persistence
         }
         
         function renderHistory() {
@@ -1298,15 +1285,7 @@
             }
         });
         
-        // Clear diary after midnight (spooky)
-        const now = new Date();
-        const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
-        const msUntilMidnight = midnight - now;
-        
-        setTimeout(() => {
-            localStorage.removeItem('tomRiddleDiary');
-            location.reload();
-        }, msUntilMidnight);
+
     </script>
 </body>
 </html>
